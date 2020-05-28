@@ -1,0 +1,1 @@
+# Integrations for Deployment into OpenShift 3.x
