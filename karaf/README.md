@@ -1,0 +1,1 @@
+# [Apache Karaf™](https://karaf.apache.org/) Integrations for Deployment into Standalone Apache Karaf Runtime 
