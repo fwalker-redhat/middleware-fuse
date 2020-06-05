@@ -1,0 +1,6 @@
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route id="test">
+        <from uri="direct:doLog"/>
+        <to uri="log:com.example.test?level=INFO&amp;showAll=true"/>
+    </route>
+</routes>
