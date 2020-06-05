@@ -1,0 +1,16 @@
+<rests xmlns="http://camel.apache.org/schema/spring">
+    <rest path="/hello">
+        <!-- By default context path for REST endpoints are at /camel/  -->
+        <post bindingMode="json" consumes="application/json">
+            <route id="restPostHello">
+                <to uri="direct:doLog"/>
+            </route>
+        </post>
+        <get bindingMode="json" produces="application/json">
+            <param name="name" type="query" dataType="String" />
+            <route id="restGetHello">
+                <to uri="log:com.example.restGetHello?level=INFO&amp;showAll=true"/>
+            </route>
+        </get>
+    </rest>
+</rests>
