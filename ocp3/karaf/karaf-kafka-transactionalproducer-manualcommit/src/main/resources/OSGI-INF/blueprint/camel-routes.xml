@@ -12,27 +12,27 @@
   <cm:property-placeholder persistent-id="HelloBean" update-strategy="reload">
     <cm:default-properties>
       <cm:property name="kafka.in.topic" value="test-inbound" />
-      <cm:property name="kafka.in.broker.host" value="127.0.0.1" />
+      <cm:property name="kafka.in.broker.host" value="my-cluster-kafka-brokers" />
       <cm:property name="kafka.in.host.port" value="9092" />
       <cm:property name="kafka.in.consumer.group" value="cg-1" />
       <cm:property name="kafka.out.topic" value="test-outbound" />
-      <cm:property name="kafka.out.broker.host" value="127.0.0.1" />
+      <cm:property name="kafka.out.broker.host" value="my-cluster-kafka-brokers" />
       <cm:property name="kafka.out.host.port" value="9092" />
       <cm:property name="kafka.transactional.id" value="prd-1" />
     </cm:default-properties>
   </cm:property-placeholder>
 
   <camelContext xmlns="http://camel.apache.org/schema/blueprint">
-    <route id="timer-karaf-producer">
-      <from uri="timer:populateTimer?fixedRate=true&amp;period=10000"/>
-      <setBody>
-        <simple>${date:now}</simple>
-      </setBody>
-      <log message="[TO INBOUND] Sent: ${body}"/>
-      <to uri="kafka:{{kafka.in.topic}}?brokers={{kafka.in.broker.host}}:{{kafka.in.host.port}}"/>
-    </route>
+<!--    <route id="timer-karaf-producer">-->
+<!--      <from uri="timer:populateTimer?fixedRate=true&amp;period=1"/>-->
+<!--      <setBody>-->
+<!--        <simple>${date:now}</simple>-->
+<!--      </setBody>-->
+<!--      <log message="[TO INBOUND] Sent: ${body}"/>-->
+<!--      <to uri="kafka:{{kafka.in.topic}}?brokers={{kafka.in.broker.host}}:{{kafka.in.host.port}}"/>-->
+<!--    </route>-->
     <route id="karaf-consumer-with-manualCommit">
-      <from uri="kafka:{{kafka.in.topic}}?brokers={{kafka.in.broker.host}}:{{kafka.in.host.port}}&amp;groupId={{kafka.in.consumer.group}}&amp;maxPollRecords=1&amp;consumersCount=1&amp;autoOffsetReset=earliest&amp;autoCommitEnable=false&amp;allowManualCommit=true&amp;breakOnFirstError=true" />
+      <from uri="kafka:{{kafka.in.topic}}?brokers={{kafka.in.broker.host}}:{{kafka.in.host.port}}&amp;groupId={{kafka.in.consumer.group}}&amp;maxPollRecords=1000&amp;consumersCount=10&amp;autoOffsetReset=latest&amp;autoCommitEnable=false&amp;allowManualCommit=true&amp;breakOnFirstError=true&amp;clientId=manualConsumer" />
       <!-- autoCommitEnable=false must be set to disable automatic commit -->
       <!-- allowManualCommit=true must be set to all manual commit to be performed -->
       <convertBodyTo type="java.lang.String"/>
