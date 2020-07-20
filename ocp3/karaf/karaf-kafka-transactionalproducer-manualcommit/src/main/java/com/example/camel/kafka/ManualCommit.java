@@ -9,17 +9,28 @@ import org.slf4j.LoggerFactory;
 
 public class ManualCommit implements Processor {
 
-    private static Logger LOG = LoggerFactory.getLogger(ManualCommit.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(ManualCommit.class);
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        try {
-            KafkaManualCommit manualCommit = exchange.getIn().getHeader(KafkaConstants.MANUAL_COMMIT, KafkaManualCommit.class);
-            manualCommit.commitSync();
-            LOG.info("Manual Commit Performed");
-        } catch (Exception e) {
-            LOG.error(e.getMessage(),e);
-            throw new Exception(e);
+
+        Boolean lastOne = exchange.getIn().getHeader(KafkaConstants.LAST_RECORD_BEFORE_COMMIT, Boolean.class);
+        System.out.println("Body inside commit: " + exchange.getIn().getHeaders().toString());
+        System.out.println("Offset: " + exchange.getIn().getHeader(KafkaConstants.MANUAL_COMMIT));
+
+        if (lastOne) {
+            KafkaManualCommit manual = exchange.getIn().getHeader(KafkaConstants.MANUAL_COMMIT, KafkaManualCommit.class);
+            System.out.println("KafkaManualCommit: " + exchange.getIn().getHeader(KafkaConstants.MANUAL_COMMIT).toString());
+            System.out.println("KafkaManualCommit: " + manual);
+            if (manual != null) {
+                LOGGER.info("manually committing the offset for batch");
+                manual.commitSync();
+                LOGGER.info("Manual Commit Performed");
+            } else {
+                LOGGER.info("Did not commit offset");
+            }
+        } else {
+            LOGGER.info("NOT time to commit the offset yet");
         }
     }
 

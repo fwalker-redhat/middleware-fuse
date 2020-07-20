@@ -181,6 +181,24 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <generator>
+                <config>
+                  <karaf>
+                    <fromMode>istag</fromMode>
+                  </karaf>
+                </config>
+              </generator>
+              <images>
+                <image>
+                  <name>${project.artifactId}:${project.version}</name>
+                  <alias>camel-service</alias>
+                  <build>
+                    <from>fabric8/java</from>
+                  </build>
+                </image>
+              </images>
+            </configuration>
           </plugin>
         </plugins>
       </build>
