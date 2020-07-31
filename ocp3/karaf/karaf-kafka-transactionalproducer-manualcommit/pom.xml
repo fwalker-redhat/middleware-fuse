@@ -10,6 +10,7 @@
     </parent>
     <artifactId>karaf-kafka-transactionalproducer-manualcommit</artifactId>
     <name>Karaf :: Fuse 7.5 :: Transactional Producer with Manual Commit Consumer</name>
+<!--    <packaging>karaf-assembly</packaging>-->
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -70,29 +71,41 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.jboss.fuse</groupId>
+            <artifactId>fuse-karaf-framework</artifactId>
+            <type>kar</type>
+        </dependency>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>fabric8-karaf-features</artifactId>
+            <classifier>features</classifier>
+            <type>xml</type>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
 
             <!-- compiler plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <version>3.7.0</version>-->
+<!--                <configuration>-->
+<!--                    <source>1.8</source>-->
+<!--                    <target>1.8</target>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-resources-plugin</artifactId>-->
+<!--                <version>3.0.2</version>-->
+<!--                <configuration>-->
+<!--                    <encoding>UTF-8</encoding>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
             <!-- to generate the MANIFEST.MF of the bundle -->
             <plugin>
@@ -133,6 +146,7 @@
                 <groupId>org.jboss.redhat-fuse</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
                 <version>${fuse.bom.version}</version>
+                <extensions>true</extensions>
                 <configuration>
                     <javase>1.8</javase>
                     <karafVersion>v4x</karafVersion>
