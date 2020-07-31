@@ -38,45 +38,9 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jboss.fuse</groupId>
-            <artifactId>fuse-karaf-framework</artifactId>
-            <type>kar</type>
-        </dependency>
-        <dependency>
-            <groupId>io.fabric8</groupId>
-            <artifactId>fabric8-karaf-features</artifactId>
-            <classifier>features</classifier>
-            <type>xml</type>
-        </dependency>
-    </dependencies>
-
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.jboss.redhat-fuse</groupId>
-                    <artifactId>karaf-maven-plugin</artifactId>
-                    <version>${fuse.bom.version}</version>
-                    <extensions>true</extensions>
-                    <executions>
-                        <execution>
-                            <id>karaf-assembly</id>
-                            <goals>
-                                <goal>assembly</goal>
-                            </goals>
-                            <phase>install</phase>
-                        </execution>
-                        <execution>
-                            <id>karaf-package</id>
-                            <goals>
-                                <goal>archive</goal>
-                            </goals>
-                            <phase>package</phase>
-                        </execution>
-                    </executions>
-                </plugin>
                 <plugin>
                     <groupId>org.commonjava.maven.plugins</groupId>
                     <artifactId>project-sources-maven-plugin</artifactId>
