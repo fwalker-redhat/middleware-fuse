@@ -9,7 +9,7 @@
 
   <bean id="manualCommit" class="com.example.camel.kafka.ManualCommit" />
 
-  <cm:property-placeholder persistent-id="HelloBean" update-strategy="reload">
+  <cm:property-placeholder persistent-id="karaf.kafka.transactionalproducer.manualcommit" update-strategy="reload">
     <cm:default-properties>
       <cm:property name="kafka.in.topic" value="test-inbound" />
       <cm:property name="kafka.in.broker.host" value="my-cluster-kafka-brokers" />
