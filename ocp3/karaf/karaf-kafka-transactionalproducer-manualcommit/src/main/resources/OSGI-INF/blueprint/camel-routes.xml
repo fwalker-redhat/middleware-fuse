@@ -5,9 +5,7 @@
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
            https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
            http://camel.apache.org/schema/blueprint
-           http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
-           http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.3.0
-           http://aries.apache.org/schemas/blueprint-ext/blueprint-ext-1.3.xsd">
+           http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
   <bean id="manualCommit" class="com.example.camel.kafka.ManualCommit" />
 
@@ -30,16 +28,16 @@
 <!--      <setBody>-->
 <!--        <simple>${date:now}</simple>-->
 <!--      </setBody>-->
-<!--      <log message="[TO INBOUND] Sent: ${body}"/>-->
-<!--      <to uri="kafka:${kafka.in.topic}?brokers=${kafka.in.broker.host}:${kafka.in.host.port}"/>-->
+<!--      <log message="[TO INBOUND] Sent: {{body}}"/>-->
+<!--      <to uri="kafka:{{kafka.in.topic}}?brokers={{kafka.in.broker.host}}:{{kafka.in.host.port}}"/>-->
 <!--    </route>-->
     <route id="karaf-consumer-with-manualCommit">
-      <from uri="kafka:${kafka.in.topic}?brokers=${kafka.in.broker.host}:${kafka.in.host.port}&amp;groupId=${kafka.in.consumer.group}&amp;maxPollRecords=1000&amp;consumersCount=10&amp;autoOffsetReset=latest&amp;autoCommitEnable=false&amp;allowManualCommit=true&amp;breakOnFirstError=true&amp;clientId=manualConsumer" />
+      <from uri="kafka:{{kafka.in.topic}}?brokers={{kafka.in.broker.host}}:{{kafka.in.host.port}}&amp;groupId={{kafka.in.consumer.group}}&amp;maxPollRecords=1000&amp;consumersCount=10&amp;autoOffsetReset=latest&amp;autoCommitEnable=false&amp;allowManualCommit=true&amp;breakOnFirstError=true&amp;clientId=manualConsumer" />
       <!-- autoCommitEnable=false must be set to disable automatic commit -->
       <!-- allowManualCommit=true must be set to all manual commit to be performed -->
       <convertBodyTo type="java.lang.String"/>
       <log message="[FROM INBOUND] Received: ${body}"/>
-      <to uri="kafka:${kafka.out.topic}?brokers=${kafka.out.broker.host}:${kafka.out.host.port}&amp;enableIdempotence=true&amp;maxInFlightRequest=1&amp;requestRequiredAcks=all&amp;retries=3"/>
+      <to uri="kafka:{{kafka.out.topic}}?brokers={{kafka.out.broker.host}}:{{kafka.out.host.port}}&amp;enableIdempotence=true&amp;maxInFlightRequest=1&amp;requestRequiredAcks=all&amp;retries=3"/>
       <process ref="manualCommit"/>
     </route>
   </camelContext>
