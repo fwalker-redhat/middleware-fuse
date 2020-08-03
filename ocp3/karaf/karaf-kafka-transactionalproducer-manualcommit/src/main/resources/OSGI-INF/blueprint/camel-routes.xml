@@ -29,7 +29,7 @@
         <simple>${date:now}</simple>
       </setBody>
       <log message="[TO INBOUND] Sent: ${body}"/>
-      <to uri="kafka:{{kafka.in.topic}}?brokers={{kafka.in.broker.host}}:{{kafka.in.host.port}}"/>}
+      <to uri="kafka:{{kafka.in.topic}}?brokers={{kafka.in.broker.host}}:{{kafka.in.host.port}}"/>
     </route>
     <route id="karaf-consumer-with-manualCommit">
       <from uri="kafka:{{kafka.in.topic}}?brokers={{kafka.in.broker.host}}:{{kafka.in.host.port}}&amp;groupId={{kafka.in.consumer.group}}&amp;maxPollRecords=1000&amp;consumersCount=10&amp;autoOffsetReset=latest&amp;autoCommitEnable=false&amp;allowManualCommit=true&amp;breakOnFirstError=true&amp;clientId=manualConsumer" />
